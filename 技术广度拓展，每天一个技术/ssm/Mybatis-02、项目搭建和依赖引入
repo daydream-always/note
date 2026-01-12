@@ -1,0 +1,19 @@
+# Mybatis-02、项目搭建和依赖引入
+
+- 创建项目
+
+选择springboot项目，选择maven
+
+选择springboot版本
+
+勾选spring web依赖、mysql驱动依赖、mabatis框架依赖
+
+- 补充依赖
+
+```xml
+<!--MyBatis的jar包-->
+<dependency>
+	<groupId>org.mybatis</groupId><artifactId>mybatis</artifactId>			<version>3.4.1</version>
+</dependency>
+```
+
