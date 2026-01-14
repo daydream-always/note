@@ -71,5 +71,5 @@ doskey gpc1=git add . ^&^& git commit -m $1 ^&^& git push gitee main
 doskey gpc2=git add . ^&^& git commit -m $1 ^&^& git push github main
 ```
 
-修改
+
 
