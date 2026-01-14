@@ -44,7 +44,7 @@ git push gitee "main"
 git push github "main"
 ```
 
-
+其他
 
 ```
 git remote -v #查看远程仓库
