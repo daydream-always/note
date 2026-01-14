@@ -62,9 +62,11 @@ Windows CMD 没有直接的永久别名机制，但可以用 `doskey` 设置临�
 ```cmd
 :: 设置临时别名 gp，使用默认提交信息
 doskey gp1=git add . ^&^& git commit -m "modify" ^&^& git push gitee main
-doskey gp1=git add . ^&^& git commit -m "modify" ^&^& git push gitee main
+doskey gp2=git add . ^&^& git commit -m "modify" ^&^& git push github main
 
 :: 设置支持自定义信息的别名（需传参数）
 doskey gpc1=git add . ^&^& git commit -m $1 ^&^& git push gitee main
 doskey gpc2=git add . ^&^& git commit -m $1 ^&^& git push github main
 ```
+
+修改
