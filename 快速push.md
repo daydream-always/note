@@ -8,7 +8,8 @@
 
 ```bat
 @echo off
-chcp 65001 > nul 2>&1  :: 解决中文乱码问题
+:: 正确切换编码为 UTF-8，解决中文乱码（> nul 2>&1 隐藏执行结果）
+chcp 65001 > nul 2>&1
 
 :: 判断是否传入了提交信息参数
 if "%~1"=="" (
@@ -25,6 +26,7 @@ git add .
 git commit -m "%commit_msg%"
 git push gitee main
 
+:: 判断命令是否执行成功
 if %errorlevel% equ 0 (
     echo.
     echo ✅ 操作执行完成！
