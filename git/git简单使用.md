@@ -29,6 +29,24 @@ git push -u origin "master"
 
 ```bash
 cd existing_git_repo
-git remote add origin https://gitee.com/CHENKAIforyou/note.git
+git remote add origin https://gitee.com/CHENKAIforyou/note.git # 远程仓库添加
 git push -u origin "master"
 ```
+
+
+
+极速
+
+```
+git add .
+git commit -m "modify"
+git push gitee "main"
+git push github "main"
+```
+
+
+
+```
+git remote -v #查看远程仓库
+```
+
