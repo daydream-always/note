@@ -697,6 +697,8 @@ halt 关闭系统，等同于shutdown –h now 和 poweroff
 
 # Linux 系统目录结构
 
+
+
 # Linux 忘记密码解决方法
 
 # Linux 远程登录 
