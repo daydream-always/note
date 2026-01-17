@@ -1778,12 +1778,1018 @@ git push origin --delete v1.0
 
 # Git Flow
 
+Git Flow 是一种基于 Git 的分支模型，旨在帮助团队更好地管理和发布软件。
+
+Git Flow 由 Vincent Driessen 在 2010 年提出，并通过一套标准的分支命名和工作流程，使开发、测试和发布过程更加有序和高效。
+
+Git Flow 主要由以下几类分支组成：`master`、`develop`、`feature`、`release`、`hotfix`。
+
+## Git Flow 安装
+
+### Linux
+
+**Debian/Ubuntu:**
+
+```
+sudo apt-get install git-flow
+```
+
+**Fedora:**
+
+```
+sudo dnf install gitflow
+sudo apt-get install git-flow
+```
+
+### macOS
+
+在 macOS 上，你可以使用 Homebrew 来安装 Git Flow:
+
+
+
+```
+brew install git-flow
+```
+
+### 源码安装
+
+如果你的发行版的包管理器中没有 Git Flow，你也可以从源代码进行安装：
+
+```
+git clone https://github.com/nvie/gitflow.git
+cd gitflow
+sudo make install
+```
+
+安装完成后，你可以通过以下命令验证 Git Flow 是否成功安装：
+
+```
+git flow version
+```
+
+### Windows
+
+在 Windows 上，你可以通过以下方式安装 Git Flow：
+
+- **使用 Git for Windows**: Git for Windows 包含了 Git Flow。你可以从 [Git for Windows](https://gitforwindows.org/) 安装 Git，然后使用 Git Bash 来使用 Git Flow。
+
+- **使用 Scoop**: 如果你使用 Scoop 包管理工具，可以通过以下命令安装 Git Flow：
+
+  ```
+  scoop install git-flow
+  ```
+
+- **使用 Chocolatey**: 如果你使用 Chocolatey 包管理工具，可以通过以下命令安装 Git Flow：
+
+  ```
+  choco install gitflow
+  ```
+
+------
+
+## Git Flow 分支模型
+
+**`master` 分支**：
+
+- 永远保持稳定和可发布的状态。
+- 每次发布一个新的版本时，都会从 `develop` 分支合并到 `master` 分支。
+
+**`develop` 分支**：
+
+- 用于集成所有的开发分支。
+- 代表了最新的开发进度。
+- 功能分支、发布分支和修复分支都从这里分支出去，最终合并回这里。
+
+**`feature` 分支**：
+
+- 用于开发新功能。
+- 从 `develop` 分支创建，开发完成后合并回 `develop` 分支。
+- 命名规范：`feature/feature-name`。
+
+**`release` 分支**：
+
+- 用于准备新版本的发布。
+- 从 `develop` 分支创建，进行最后的测试和修复，然后合并回 `develop` 和 `master` 分支，并打上版本标签。
+- 命名规范：`release/release-name`。
+
+**`hotfix` 分支**：
+
+- 用于修复紧急问题。
+- 从 `master` 分支创建，修复完成后合并回 `master` 和 `develop` 分支，并打上版本标签。
+- 命名规范：`hotfix/hotfix-name`。
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/git-flow.png)
+
+### 分支操作原理
+
+- Master 分支上的每个 Commit 应打上 Tag，Develop 分支基于 Master 创建。
+- Feature 分支完成后合并回 Develop 分支，并通常删除该分支。
+- Release 分支基于 Develop 创建，用于测试和修复 Bug，发布后合并回 Master 和 Develop，并打 Tag 标记版本号。
+- Hotfix 分支基于 Master 创建，完成后合并回 Master 和 Develop，并打 Tag 1。
+
+### Git Flow 命令示例
+
+- 开始 Feature 分支：`git flow feature start MYFEATURE`
+- 完成 Feature 分支：`git flow feature finish MYFEATURE`
+- 开始 Release 分支：`git flow release start RELEASE [BASE]`
+- 完成 Release 分支：合并到 Master 和 Develop，打 Tag，删除 Release 分支。
+- 开始 Hotfix 分支：`git flow hotfix start HOTFIX [BASE]`
+- 完成 Hotfix 分支：合并到 Master 和 Develop，打 Tag，删除 Hotfix 分支。
+
+### Git Flow 工作流程
+
+#### 1. 初始化 Git Flow
+
+首先，在项目中初始化 Git Flow。可以使用 Git Flow 插件（例如 `git-flow`）来简化操作。
+
+```
+git flow init
+```
+
+初始化时，你需要设置分支命名规则和默认分支。
+
+#### 2. 创建功能分支
+
+当开始开发一个新功能时，从 `develop` 分支创建一个功能分支。
+
+```
+git flow feature start feature-name
+```
+
+完成开发后，将功能分支合并回 `develop` 分支，并删除功能分支。
+
+```
+git flow feature finish feature-name
+```
+
+#### 3. 创建发布分支
+
+当准备发布一个新版本时，从 `develop` 分支创建一个发布分支。
+
+```
+git flow release start release-name
+```
+
+在发布分支上进行最后的测试和修复，准备好发布后，将发布分支合并回 `develop` 和 `master` 分支，并打上版本标签。
+
+```
+git flow release finish release-name
+```
+
+#### 4. 创建修复分支
+
+当发现需要紧急修复的问题时，从 `master` 分支创建一个修复分支。
+
+```
+git flow hotfix start hotfix-name
+```
+
+修复完成后，将修复分支合并回 `master` 和 `develop` 分支，并打上版本标签。
+
+```
+git flow hotfix finish hotfix-name
+```
+
+### 实例操作
+
+以下是一个实际使用 Git Flow 的综合实例。
+
+**初始化 Git Flow**：
+
+```
+git flow init
+```
+
+**创建和完成功能分支**：
+
+```
+git flow feature start new-feature # 开发新功能
+git flow feature finish new-feature
+```
+
+**创建和完成发布分支**：
+
+```
+git flow release start v1.0.0 # 测试和修复
+git flow release finish v1.0.0
+```
+
+**创建和完成修复分支**：
+
+```
+git flow hotfix start hotfix-1.0.1. # 修复紧急问题
+git flow hotfix finish hotfix-1.0.1
+```
+
+### 优点和缺点
+
+**优点**
+
+- **明确的分支模型**：清晰的分支命名和使用规则，使得开发过程井然有序。
+- **隔离开发和发布**：开发和发布过程分离，减少了开发中的不确定性对发布的影响。
+- **版本管理**：每次发布和修复都会打上版本标签，方便回溯和管理。
+
+**缺点**
+
+- **复杂性**：对于小型团队或简单项目，Git Flow 的分支模型可能显得过于复杂。
+- **频繁的合并**：在大型团队中，频繁的分支合并可能导致合并冲突增加。
+
+Git Flow 是一种结构化的分支管理模型，通过定义明确的分支和工作流程，帮助团队更好地管理软件开发和发布过程。虽然它增加了一定的复杂性，但对于大型项目和团队协作，Git Flow 提供了强大的支持和管理能力。
+
 # Git 进阶操作
+
+在掌握了 Git 的基础操作之后，进阶操作可以帮助你更高效地管理和优化你的代码库。
+
+以下是一些常见的进阶操作及其详细说明：
+
+- **交互式暂存**：逐块选择要暂存的更改，精细控制提交内容。
+- **Git Stash**：临时保存工作进度，方便切换任务。
+- **Git Rebase**：将一个分支上的更改移到另一个分支之上，保持提交历史线性。
+- **Git Cherry-Pick**：选择特定提交并应用到当前分支。
+
+### 1、交互式暂存（Interactive Staging）
+
+`git add` 命令可以选择性地将文件或文件的一部分添加到暂存区，这在处理复杂更改时非常有用。
+
+- **使用 `git add -p`**：逐块选择要暂存的更改。
+
+```
+git add -p
+```
+
+执行此命令后，Git 会逐块显示文件的更改，你可以选择是否暂存每个块。常用选项包括：
+
+- `y`：暂存当前块
+- `n`：跳过当前块
+- `s`：拆分当前块
+- `e`：手动编辑当前块
+- `q`：退出暂存
+
+### 2、Git Stash：临时保存工作进度
+
+`git stash` 命令允许你临时保存当前工作目录的更改，以便你可以切换到其他分支或处理其他任务。
+
+**保存当前工作进度**：
+
+```
+git stash
+```
+
+**查看存储的进度**：
+
+```
+git stash list
+```
+
+**应用最近一次存储的进度**：
+
+```
+git stash apply
+```
+
+**应用并删除最近一次存储的进度**：
+
+```
+git stash pop
+```
+
+**删除特定存储**：
+
+```
+git stash drop stash@{n}
+```
+
+**清空所有存储**：
+
+```
+git stash clear
+```
+
+### 3、Git Rebase：变基
+
+`git rebase` 命令用于将一个分支上的更改移到另一个分支之上。它可以帮助保持提交历史的线性，减少合并时的冲突。
+
+**变基当前分支到指定分支**：
+
+```
+git rebase <branchname>
+```
+
+例如，将当前分支变基到 `main` 分支：
+
+```
+git rebase main
+```
+
+- **交互式变基**：
+
+```
+git rebase -i <commit>
+```
+
+交互式变基允许你在变基过程中编辑、删除或合并提交。常用选项包括：
+
+- `pick`：保留提交
+- `reword`：修改提交信息
+- `edit`：编辑提交
+- `squash`：将当前提交与前一个提交合并
+- `fixup`：将当前提交与前一个提交合并，不保留提交信息
+- `drop`：删除提交
+
+### 4、Git Cherry-Pick：拣选提交
+
+`git cherry-pick` 命令允许你选择特定的提交并将其应用到当前分支。它在需要从一个分支移植特定更改到另一个分支时非常有用。
+
+**拣选提交**：
+
+```
+git cherry-pick <commit>
+```
+
+例如，将 `abc123` 提交应用到当前分支：
+
+```
+git cherry-pick abc123
+```
+
+**处理拣选冲突**：如果拣选过程中出现冲突，解决冲突后使用 `git cherry-pick --continue` 继续拣选。
+
+### 示例操作
+
+以下是一个综合示例，展示了如何使用这些进阶操作：
+
+**交互式暂存**：
+
+```
+git add -p
+```
+
+**保存工作进度**：
+
+```
+git stash
+```
+
+**查看存储的进度**：
+
+```
+git stash list
+```
+
+**应用存储的进度**：
+
+```
+git stash apply
+```
+
+**变基当前分支到 `main` 分支**：
+
+```
+git rebase main
+```
+
+**交互式变基，编辑提交历史**：
+
+```
+git rebase -i HEAD~3
+```
+
+编辑提交历史，如合并和重命名提交。
+
+**拣选 `feature` 分支上的特定提交到 `main` 分支**：
+
+```
+git checkout main
+git cherry-pick abc123
+```
 
 # Git Github
 
+Git 并不像 SVN 那样有个中心服务器。
+
+目前我们使用到的 Git 命令都是在本地执行，如果你想通过 Git 分享你的代码或者与其他开发人员合作。 你就需要将数据放到一台其他开发人员能够连接的服务器上。
+
+本例使用了 Github 作为远程仓库，你可以先阅读我们的 [Github 简明教程。](https://www.runoob.com/w3cnote/git-guide.html)
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/Git-push-command.jpeg)
+
+------
+
+## 添加远程库
+
+要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用,命令格式如下：
+
+```
+git remote add [shortname] [url]
+```
+
+本例以 Github 为例作为远程仓库，如果你没有 Github 可以在官网 https://github.com/注册。
+
+
+
+由于你的本地 Git 仓库和 GitHub 仓库之间的传输是通过SSH加密的，所以我们需要配置验证信息：
+
+使用以下命令生成 SSH Key：
+
+```
+$ ssh-keygen -t rsa -C "youremail@example.com"
+```
+
+后面的 **your_email@youremail.com** 改为你在 Github 上注册的邮箱，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。
+
+成功的话会在 **~/** 下生成 **.ssh** 文件夹，进去，打开 **id_rsa.pub**，复制里面的 **key**。
+
+```
+$ ssh-keygen -t rsa -C "12345678@qq.com"
+Generating public/private rsa key pair.
+Enter file in which to save the key (/Users/tianqixin/.ssh/id_rsa): 
+Enter passphrase (empty for no passphrase):    # 直接回车
+Enter same passphrase again:                   # 直接回车
+Your identification has been saved in /Users/tianqixin/.ssh/id_rsa.
+Your public key has been saved in /Users/tianqixin/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:MDKVidPTDXIQoJwoqUmI4LBAsg5XByBlrOEzkxrwARI 12345678@qq.com
+The key's randomart image is:
++---[RSA 3072]----+
+|E*+.+=**oo       |
+|%Oo+oo=o. .      |
+|%**.o.o.         |
+|OO.  o o         |
+|+o+     S        |
+|.                |
+|                 |
+|                 |
+|                 |
++----[SHA256]-----+
+```
+
+回到 github 上，进入 Account => Settings（账户配置）。
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/48840BF0-992F-4CCC-A388-15CB74819D88.jpg)
+
+左边选择 **SSH and GPG keys**，然后点击 **New SSH key** 按钮,title 设置标题，可以随便填，粘贴在你电脑上生成的 key。
+
+![img](https://www.runoob.com/wp-content/uploads/2015/03/B0589847-A498-4415-8700-252BDE1B20C0.jpg)
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/106AD534-A38A-47F3-88A3-B7BE3F2FEEF1.jpg)
+
+添加成功后界面如下所示
+
+
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/EC8F8872-091A-4CAB-90F2-616F34F350A9.jpg)
+
+为了验证是否成功，输入以下命令：
+
+```
+$ ssh -T git@github.com
+The authenticity of host 'github.com (52.74.223.119)' can't be established.
+RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes                   # 输入 yes
+Warning: Permanently added 'github.com,52.74.223.119' (RSA) to the list of known hosts.
+Hi tianqixin! You've successfully authenticated, but GitHub does not provide shell access. # 成功信息
+```
+
+以下命令说明我们已成功连上 Github。
+
+之后登录后点击" New repository " 如下图所示：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/github1.jpg)
+
+之后在在Repository name 填入 runoob-git-test(远程仓库名) ，其他保持默认设置，点击"Create repository"按钮，就成功地创建了一个新的Git仓库：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/299CF000-7B6E-4BEC-B8C2-D9AEB053307B.jpg)
+
+创建成功后，显示如下信息：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/1BCB4379-1A25-4C77-BB82-92B3E7185435.jpg)
+
+以上信息告诉我们可以从这个仓库克隆出新的仓库，也可以把本地仓库的内容推送到GitHub仓库。
+
+现在，我们根据 GitHub 的提示，在本地的仓库下运行命令：
+
+```
+$ mkdir runoob-git-test                     # 创建测试目录
+$ cd runoob-git-test/                       # 进入测试目录
+$ echo "# 菜鸟教程 Git 测试" >> README.md     # 创建 README.md 文件并写入内容
+$ ls                                        # 查看目录下的文件
+README
+$ git init                                  # 初始化
+$ git add README.md                         # 添加文件
+$ git commit -m "添加 README.md 文件"        # 提交并备注信息
+[master (root-commit) 0205aab] 添加 README.md 文件
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+
+# 提交到 Github
+$ git remote add origin git@github.com:tianqixin/runoob-git-test.git
+$ git push -u origin master
+```
+
+以下命令请根据你在Github成功创建新仓库的地方复制，而不是根据我提供的命令，因为我们的Github用户名不一样，仓库名也不一样。
+
+接下来我们返回 Github 创建的仓库，就可以看到文件已上传到 Github上：
+
+![img](https://www.runoob.com/wp-content/uploads/2015/03/53CA927D-F36F-4A00-AFB2-5EAED05B535E.jpg)
+
+------
+
+## 查看当前的远程库
+
+要查看当前配置有哪些远程仓库，可以用命令：
+
+```
+git remote
+```
+
+### 实例
+
+```
+$ git remote
+origin
+$ git remote -v
+origin    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin    git@github.com:tianqixin/runoob-git-test.git (push)
+```
+
+执行时加上 -v 参数，你还可以看到每个别名的实际链接地址。
+
+------
+
+## 提取远程仓库
+
+Git 有两个命令用来提取远程仓库的更新。
+
+1、从远程仓库下载新分支与数据：
+
+```
+git fetch
+```
+
+该命令执行完后需要执行 git merge 远程分支到你所在的分支。
+
+2、从远端仓库提取数据并尝试合并到当前分支：
+
+```
+git merge
+```
+
+该命令就是在执行 **git fetch** 之后紧接着执行 **git merge** 远程分支到你所在的任意分支。
+
+![img](https://www.runoob.com/wp-content/uploads/2015/03/main-qimg-00a6b5a8ec82400657444504c4d4d1a7.png)
+
+假设你配置好了一个远程仓库，并且你想要提取更新的数据，你可以首先执行 **git fetch [alias]** 告诉 Git 去获取它有你没有的数据，然后你可以执行 **git merge [alias]/[branch]** 以将服务器上的任何更新（假设有人这时候推送到服务器了）合并到你的当前分支。
+
+接下来我们在 Github 上点击" README.md" 并在线修改它:
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/C5A6670F-202D-4F2C-8A63-07CEA37BB67A.jpg)
+
+然后我们在本地更新修改。
+
+```
+$ git fetch origin
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:tianqixin/runoob-git-test
+   0205aab..febd8ed  master     -> origin/master
+```
+
+以上信息"0205aab..febd8ed master -> origin/master" 说明 master 分支已被更新，我们可以使用以下命令将更新同步到本地：
+
+```
+$ git merge origin/master
+Updating 0205aab..febd8ed
+Fast-forward
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
+```
+
+查看 README.md 文件内容：
+
+```
+$ cat README.md 
+# 菜鸟教程 Git 测试
+## 第一次修改内容
+```
+
+------
+
+## 推送到远程仓库
+
+推送你的新分支与数据到某个远端仓库命令:
+
+```
+git push [alias] [branch]
+```
+
+以上命令将你的 [branch] 分支推送成为 [alias] 远程仓库上的 [branch] 分支，实例如下。
+
+```
+$ touch runoob-test.txt      # 添加文件
+$ git add runoob-test.txt 
+$ git commit -m "添加到远程"
+master 69e702d] 添加到远程
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 runoob-test.txt
+
+$ git push origin master    # 推送到 Github
+```
+
+重新回到我们的 Github 仓库，可以看到文件已经提交上来了：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/79A84530-7DC0-4D25-9F83-8776433A4C32.jpg)
+
+------
+
+## 删除远程仓库
+
+删除远程仓库你可以使用命令：
+
+```
+git remote rm [别名]
+```
+
+### 实例
+
+```
+$ git remote -v
+origin    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin    git@github.com:tianqixin/runoob-git-test.git (push)
+
+# 添加仓库 origin2
+$ git remote add origin2 git@github.com:tianqixin/runoob-git-test.git
+
+$ git remote -v
+origin    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin    git@github.com:tianqixin/runoob-git-test.git (push)
+origin2    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin2    git@github.com:tianqixin/runoob-git-test.git (push)
+
+# 删除仓库 origin2
+$ git remote rm origin2
+$ git remote -v
+origin    git@github.com:tianqixin/runoob-git-test.git (fetch)
+origin    git@github.com:tianqixin/runoob-git-test.git (push)
+```
+
 # Git 服务器搭建
+
+上一章节中我们远程仓库使用了 Github，Github 公开的项目是免费的，2019 年开始 Github 私有存储库也可以无限制使用。
+
+当然我们也可以自己搭建一台 Git 服务器作为私有仓库使用。
+
+## 使用裸存储库（Bare Repository）
+
+### 1、安装Git
+
+Ubuntu 服务器上安装 Git：
+
+```
+sudo apt install git
+```
+
+如果你使用的系统是 Centos/RedHat 安装命令为：
+
+```
+yum -y install git-core
+```
+
+Fedora 安装命令：
+
+```
+# yum install git (Fedora 21 及之前的版本)
+# dnf install git (Fedora 22 及更高新版本)
+```
+
+接下来我们 创建一个 git 用户组和用户，用来运行git服务：
+
+```
+$ groupadd git
+$ useradd git -g git
+```
+
+### 2、创建裸存储库
+
+登录到 Git 用户，然后在其 home 目录下创建一个裸存储库。
+
+```
+$ sudo su - git
+```
+
+首先我们选定一个目录作为 Git 仓库，假定是 /home/gitrepo/runoob.git，在 /home/gitrepo 目录下输入命令：
+
+```
+$ cd /home
+$ mkdir gitrepo
+$ chown git:git gitrepo/
+$ cd gitrepo
+
+$ git init --bare runoob.git
+```
+
+以上命令Git创建一个空仓库，服务器上的 Git 仓库通常都以 **.git** 结尾。然后，把仓库所属用户改为 git（如果是其他用户操作，比如 root）：
+
+```
+$ chown -R git:git runoob.git
+```
+
+### 3、创建证书登录
+
+将你的公钥添加到 ~/.ssh/authorized_keys 中，允许远程访问。
+
+收集所有需要登录的用户的公钥，公钥位于 id_rsa.pub 文件中，把我们的公钥导入到 /home/git/.ssh/authorized_keys 文件里，一行一个。
+
+如果没有该文件创建它：
+
+```
+$ cd /home/git/
+$ mkdir .ssh
+$ chmod 755 .ssh
+$ touch .ssh/authorized_keys
+$ chmod 644 .ssh/authorized_keys
+# 在文件中添加你的 SSH 公钥
+```
+
+
+
+### 4、克隆仓库
+
+```
+$ git clone git@192.168.45.4:/home/gitrepo/runoob.git
+Cloning into 'runoob'...
+warning: You appear to have cloned an empty repository.
+Checking connectivity... done.
+```
+
+192.168.45.4 为 Git 所在服务器 ip ，你需要将其修改为你自己的 Git 服务 ip。
+
+这样我们的 Git 服务器安装就完成。
+
+------
+
+## 使用 GitLab
+
+GitLab 是一个功能强大的 Git 服务管理工具，适合中大型团队，提供了丰富的用户管理、CI/CD、代码审查等功能。
+
+**1、安装 GitLab**
+
+根据 [GitLab 官方文档](https://about.gitlab.com/install/) 安装 GitLab。
+
+例如，在 Ubuntu 上：
+
+```
+# sudo apt-get update
+# sudo apt-get install -y curl openssh-server ca-certificates tzdata perl
+# curl https://packages.gitlab.com/install/repositories/gitlab/gitlab-ee/script.deb.sh | sudo bash
+# sudo EXTERNAL_URL="http://yourdomain" apt-get install gitlab-ee
+```
+
+EXTERNAL_URL="http://yourdomain" 要设置自己的域名，或者公网 IP，比如：
+
+```
+sudo EXTERNAL_URL=101.132.XX.XX yum install -y gitlab-ee
+```
+
+**2、配置 GitLab**
+
+安装完成后，打开浏览器访问 http://yourdomain，设置管理员账户。
+
+当出现类似如下回显信息，表示 GitLab 已经安装成功。
+
+
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-1.png)
+
+**3、创建项目**
+
+
+
+登录 GitLab，创建一个新的项目，用户名为 **root**。
+
+获取登录密码：
+
+```
+sudo cat /etc/gitlab/initial_root_password
+```
+
+结果如下所示：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab2.png)
+
+首次登录使用用户名 **root**:
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-3.png)
+
+**4、生成密钥对文件并获取公钥**
+
+安装 Git 工具（已安装跳过）：
+
+```
+sudo apt-get install git
+```
+
+生成密钥对文件 id_rsa:
+
+```
+ssh-keygen
+```
+
+生成密钥对的过程中，系统会提示输入密钥对存放目录（默认为当前用户目录下的 .ssh/id_rsa，例如 /home/test/.ssh/id_rsa）和密钥对密码，您可以手动输入，也可以按 Enter 保持默认。
+
+生成后，显示信息如下：
+
+![img](https://www.runoob.com/wp-content/uploads/2015/03/gitlab-4.png)
+
+查看并复制公钥文件 id_rsa.pub 中的内容:
+
+```
+cat .ssh/id_rsa.pub
+```
+
+显示类似如下的信息：
+
+```
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQVwWjF3KXmI549jDI0fuCgl+syJjjn55iMUDRRiCd/B+9TwUda3l9WXH5i7RU53QGRCsDVFZxixLOlmXr9E3VSqkf8xXBnHs/5E2z5PIOCN0nxfB9xeA1db/QxPwK4gkHisep+eNHRn9x+DpCYDoSoYQN0nBg+H3uqfOqL42mJ+tqSfkyqbhjBf1kjtDTlBfVCWtI0siu7owm+c65+8KNyPlj5/0AyJ4Aqk1OX2jv+YE4nTipucn7rHwWuowasPU86l+uBsLNwOSb+H7loJvQyhEINX2FS1KnpRU+ld20t07n+N3ErfX5xBAGfxXpoN9BKKSP+RT7rvTeXTVE**** test@runoob.com****
+```
+
+**5、创建项目**
+
+在 GitLab 的主页中，点击 Create a project 选项：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-5.png)
+
+点击 Create blank project，设置 Project name 和 Project URL，然后点击 Create project：
+
+![img](https://www.runoob.com/wp-content/uploads/2015/03/gitlab-6.png)
+
+本文以 mywork 项目为例进行说明。
+
+**6、添加 SSH key**
+
+在当前 project 页面，点击 Add SSH key：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-7.png)
+
+将公钥文件 id_rsa.pub 中的内容粘贴到 Key 所在的文本框中：
+
+![img](https://www.runoob.com/wp-content/uploads/2015/03/gitlab-8.png)
+
+点击 Add key，SSH Key 添加完成后，如下图所示：
+
+
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-9.png)
+
+复制 Clone 链接，该链接在进行克隆操作时需要使用：
+
+![img](https://www.runoob.com/wp-content/uploads/2015/03/gitlab-10.png)
+
+### 使用GitLab
+
+**1、配置使用 Git 仓库的人员信息，包含用户名和邮箱。**
+
+```
+git config --global user.name "testname" 
+ 
+git config --global user.email "abc@example.com" 
+```
+
+**2、克隆已创建的项目到本地。**
+
+```
+git clone git@101.132.XX.XX:root/mywork.git
+```
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-11.png)
+
+**3、上传文件到 GitLab 服务器：**
+
+进入到项目目录：
+
+```
+cd mywork/ 
+```
+
+创建需要上传到 GitLab 中的目标文件：
+
+```
+echo "test" > /home/test/test.sh
+```
+
+将目标文件或者目录复制到项目目录下：
+
+```
+cp /home/test/test.sh ./ 
+```
+
+将 test.sh 文件加入到索引中：
+
+```
+git add test.sh
+```
+
+将 test.sh 提交到本地仓库：
+
+```
+git commit -m "test.sh"
+```
+
+将文件同步到 GitLab 服务器上：
+
+```
+git push -u origin main
+```
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-12.png)
+
+在网页中查看上传的 test.sh 文件已经同步到 GitLab 服务器中:
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/gitlab-13.png)
 
 # Sourcetree
 
-# Git 测验
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/Sourcetree@2x-icon-blue.png)
+
+Git 有很多图形界面工具 ( GUI )，比如 SourceTree、Github Desktop、TortoiseGit 等。
+
+SourceTree 是一个 Git 客户端管理工具，适用于 Windows 和 Mac 系统。
+
+SourceTree 简化了开发者与代码仓库之间的 Git 操作方式，我们可以通过界面菜单很方便的处理 Git 操作，而不需要通过命令。
+
+通过 SourceTree，我们可以管理所有的 Git 库，无论是远程还是本地的。SourceTree 支持 Bitbucket、GitHub 以及 Gitlab 等远程仓库。
+
+------
+
+## Sourcetree 安装
+
+我们可以在 Sourcetree 官网 https://www.sourcetreeapp.com/ 直接点击下载按钮来下载：
+
+![img](https://www.runoob.com/wp-content/uploads/2022/06/sourcetree-1.jpeg)
+
+其他版本可以查看：https://www.sourcetreeapp.com/download-archives
+
+下载完成后，解压 ZIP 文件，双击应用程序文件（Windows 为 EXE 或 Mac 为 DMG）进行安装。
+
+安装过程中，我们只需要同意 Atlassian 客户协议并点击 Continue 即可。
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/sourcetree_aa.png)
+
+创建 Bitbucket 账户可跳过初始设置，加载 SSH 密钥，如果有会默认加载进来，也可以后面再设置。
+
+![img](https://www.runoob.com/wp-content/uploads/2022/06/sourcetree_account.png)
+
+按照提示操作，直到您完成设置。如果您还没有准备好克隆存储库，请单击 Skip Setup。
+
+------
+
+## 连接 Github 账户
+
+如果你还没有 Github 账户需要创建一个，可以参考 [Git 远程仓库(Github)](https://www.runoob.com/git/git-remote-repo.html)。
+
+接下来我们将介绍使用 Sourcetree 管理我们的 Github 账户。
+
+我们可以将多个帐户添加到 Sourcetree。
+
+单击右上角的按钮并选择**帐户**。
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/sourcetree-2.jpeg)
+
+接下来我们通过添加账户按钮添加 Github 账户。
+
+![img](https://www.runoob.com/wp-content/uploads/2022/06/sourcetree-3.jpeg)
+
+Github 账户添加完成后，就可以直接克隆我们自己的账户：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/sourcetree-4.jpeg)
+
+也可以克隆其他远程仓库：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/sourcetree-5.jpeg)
+
+克隆完成后，我们就可以进行提交、拉取、合并等操作：
+
+![img](https://www.runoob.com/wp-content/uploads/2022/06/sourcetree-6.jpeg)
+
+------
+
+## 创建本地仓库
+
+单击**新建**，然后选择**创建本地仓库**。
+
+![img](https://www.runoob.com/wp-content/uploads/2022/06/sourcetree-7.jpeg)
+
+输入您的目标路径和存储库名称，然后点击**创建**。
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/sourcetree-8.jpeg)
+
+创建完成后就会显示在本地的列表中：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/sourcetree-9.jpeg)
+
+如果我们本地已经存在一个仓库，可以直接添加它。
+
+点击**新建**，然后 点击**添加已经存在的本地仓库**：
+
+![img](https://gitee.com/CHENKAIforyou/image-bed/raw/master/imag/sourcetree-10.jpeg)
