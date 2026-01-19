@@ -37,7 +37,7 @@ git push -u origin "master"
 
 极速
 
-```
+```bash
 git add .
 git commit -m "modify"
 git push gitee "main"
@@ -46,7 +46,7 @@ git push github "main"
 
 其他
 
-```
+```bash
 git remote -v #查看远程仓库
 git remote remove origin #移除名为 origin 的远程仓库
 ```
