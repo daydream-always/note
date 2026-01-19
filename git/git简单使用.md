@@ -29,7 +29,7 @@ git push -u origin "master"
 
 ```bash
 cd existing_git_repo
-git remote add origin https://gitee.com/CHENKAIforyou/note.git # 远程仓库添加
+git remote add origin https://gitee.com/CHENKAIforyou/note.git #远程仓库添加
 git push -u origin "master"
 ```
 
@@ -48,5 +48,6 @@ git push github "main"
 
 ```
 git remote -v #查看远程仓库
+git remote remove origin #移除名为 origin 的远程仓库
 ```
 
