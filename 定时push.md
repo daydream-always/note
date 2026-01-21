@@ -29,12 +29,14 @@ git config user.name "%GIT_USER%"
 git config user.email "%GIT_EMAIL%"
 
 :: 拉取GitHub最新代码（选一个主要仓库拉取即可，避免冲突）
+echo.
 echo 【步骤1】拉取GitHub远程仓库最新代码...
 git pull github main || (
     echo 【警告】拉取GitHub代码失败（可能网络/权限问题），继续尝试提交
 )
 
 :: 添加所有变更文件
+echo.
 echo 【步骤2】添加所有变更文件...
 git add .
 
@@ -46,6 +48,7 @@ if %errorlevel% equ 0 (
 )
 
 :: 提交代码
+echo.
 echo 【步骤3】提交代码...
 git commit -m "%COMMIT_MSG%" || (
     echo 【错误】代码提交失败，请检查本地仓库状态
@@ -54,6 +57,7 @@ git commit -m "%COMMIT_MSG%" || (
 )
 
 :: 循环推送至所有远程仓库
+echo.
 echo 【步骤4】推送至所有远程仓库...
 for %%r in (%REMOTE_LIST%) do (
     echo --- 正在推送至 %%r ---
@@ -62,6 +66,7 @@ for %%r in (%REMOTE_LIST%) do (
     )
 )
 
+echo.
 echo 【完成】定时提交推送流程结束
 exit /b 0
 ```
