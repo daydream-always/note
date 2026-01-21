@@ -1,3 +1,9 @@
+# 定时push
+
+### 一、适配多仓库的 Windows 自动化脚本
+
+我为你定制了适配 `D:\note` 仓库、支持多远程仓库推送的批处理脚本，同时优化了 Windows 环境的兼容性
+
 ```bash
 @echo off
 chcp 65001 >nul 2>&1
@@ -5,7 +11,7 @@ chcp 65001 >nul 2>&1
 :: ========== 核心配置（已适配你的仓库路径） ==========
 set REPO_PATH=D:\note
 set GIT_USER=daydream-always
-set GIT_EMAIL=你的邮箱@example.com  # 替换为你的Git邮箱
+set GIT_EMAIL=925037994@qq.com  # 替换为你的Git邮箱
 set COMMIT_MSG=Auto commit: %date:~0,10% %time:~0,8%
 :: 要推送的远程仓库列表（对应你的aliyun/gitea/gitee/github/huaweiyun）
 set REMOTE_LIST=aliyun gitea gitee github huaweiyun
@@ -59,4 +65,26 @@ for %%r in (%REMOTE_LIST%) do (
 echo 【完成】定时提交推送流程结束
 exit /b 0
 ```
+
+### 二、Windows 免密推送配置（关键！）
+
+定时任务无交互界面，必须配置免密，否则推送会失败。针对你的不同仓库类型（SSH/HTTPS）分别处理：
+
+#### 1. GitHub（SSH 方式）
+
+你的 GitHub 已用 `git@github.com`（SSH），只需确保：
+
+- 本地生成过 SSH 密钥（`id_rsa`/`id_rsa.pub`），且公钥已添加到 GitHub 账号；
+
+
+
+
+
+
+
+
+
+
+
+
 
