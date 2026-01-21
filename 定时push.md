@@ -72,13 +72,11 @@ exit /b 0
 
 #### 1. GitHub（SSH 方式）
 
-你的 GitHub 已用 `git@github.com`（SSH），只需确保：
-
-- 本地生成过 SSH 密钥（`id_rsa`/`id_rsa.pub`），且公钥已添加到 GitHub 账号；
+#### 2. 阿里云 / Gitea/Gitee/ 华为云（HTTPS 方式）
 
 
 
-
+### 三、配置 Windows 任务计划程序（定时执行脚本）
 
 
 
