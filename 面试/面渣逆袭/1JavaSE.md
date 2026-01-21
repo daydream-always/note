@@ -2,7 +2,7 @@
 
 ## [Java 概述](https://javabetter.cn/sidebar/sanfene/javase.html#java-概述)
 
-### [1.什么是 Java？](https://javabetter.cn/sidebar/sanfene/javase.html#_1-🌟什么是-java)
+### [1.🌟什么是 Java？](https://javabetter.cn/sidebar/sanfene/javase.html#_1-🌟什么是-java)
 
 #### [Java 语言和 C 语言有哪些区别？](https://javabetter.cn/sidebar/sanfene/javase.html#java-语言和-c-语言有哪些区别)
 
