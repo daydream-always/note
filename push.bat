@@ -5,7 +5,16 @@ chcp 65001 >nul 2>&1
 set REPO_PATH=D:\note
 set GIT_USER=daydream-always
 set GIT_EMAIL=925037994@qq.com  # 替换为你的Git邮箱
-set COMMIT_MSG=Auto commit: %date:~0,10% %time:~0,8%
+
+for /f "tokens=2 delims==" %%a in ('wmic os get localdatetime /value') do set dt=%%a
+set YYYY=%dt:~0,4%
+set MM=%dt:~4,2%
+set DD=%dt:~6,2%
+set HH=%dt:~8,2%
+set MN=%dt:~10,2%
+set SS=%dt:~12,2%
+set COMMIT_MSG=Auto commit: %YYYY%-%MM%-%DD% %HH%:%MN%:%SS%
+
 :: 要推送的远程仓库列表（对应你的aliyun/gitea/gitee/github/huaweiyun）
 set REMOTE_LIST=aliyun gitea gitee github huaweiyun
 :: ========== 配置结束 ==========
