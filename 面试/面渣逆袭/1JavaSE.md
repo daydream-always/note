@@ -132,8 +132,6 @@ Java 语言的特点有：
 
 **注意**：逻辑或运算符（`|`）和短路或运算符（`||`）的差别也是类似。
 
-> 2024 年 12 月 23 日 更新到这里。
-
 ### [11.switch 语句能否用在 byte/long/String 类型上？](https://javabetter.cn/sidebar/sanfene/javase.html#_11-switch-语句能否用在-byte-long-string-类型上)
 
 Java 5 以前 `switch(expr)` 中，expr 只能是 byte、short、char、int。
@@ -472,23 +470,5 @@ equals：用于比较两个对象的内容是否相等。
 
 #### [什么是 hashCode 方法？](https://javabetter.cn/sidebar/sanfene/javase.html#什么是-hashcode-方法)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+`hashCode()` 方法的作⽤是获取哈希码，它会返回⼀个 int 整数，定义在 [Object 类](https://javabetter.cn/oo/object-class.html)中， 是一个本地⽅法。
 
