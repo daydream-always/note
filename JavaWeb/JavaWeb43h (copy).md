@@ -592,9 +592,11 @@ clean不会运行，compile会运行。  因为compile与package属于同一套�
 
 Spring的官方提供很多开源的项目，我们可以点击上面的projects，看到spring家族旗下的项目，按照流行程度排序为：
 
-Spring发展到今天已经形成了一种开发生态圈，Spring提供了若干个子项目，每个项目用于完成特定的功能。而我们在项目开发时，一般会偏向于选择这一套spring家族的技术，来解决对应领域的问题，那我们称这一套技术为**spring全家桶**。
+Spring发展到今天已经形成了一种开发生态圈，Spring提供了若干个子项目，每个项目用于完成特定的功能。而我们在项目开发时，一般会偏向于选择这一套spring家族的技术，来解决对应领域的问题，那我们称这一套技术为spring全家桶。
 
 而Spring家族旗下这么多的技术，最基础、最核心的是 SpringFramework。其他的spring家族的技术，都是基于SpringFramework的，SpringFramework中提供很多实用功能，如：依赖注入、事务管理、web开发支持、数据访问、消息服务等等。
+
+
 
 而如果我们在项目中，直接基于SpringFramework进行开发，存在两个问题：配置繁琐、入门难度大。 
 
@@ -604,11 +606,58 @@ Spring发展到今天已经形成了一种开发生态圈，Spring提供了若�
 
 接下来，我们就直接通过一个SpringBoot的web入门程序，让大家快速感受一下，基于SpringBoot进行Web开发的便捷性。
 
-
-
 ## Day04-10. Web入门-SpringBootWeb-快速入门16:25
 
+### 1.1 需求
 
+需求：基于SpringBoot的方式开发一个web应用，浏览器发起请求/hello后，给浏览器返回字符串 “Hello World ~”。
+
+### 1.2 开发步骤
+
+第1步：创建SpringBoot工程项目
+
+第2步：定义HelloController类，添加方法hello，并添加注解
+
+第3步：测试运行
+
+#### 1.2.1 创建SpringBoot工程（需要联网）
+
+基于Spring官方骨架，创建SpringBoot工程。
+
+基本信息描述完毕之后，勾选web开发相关依赖。
+
+点击Finish之后，就会联网创建这个SpringBoot工程，创建好之后，结构如下：，注意：在联网创建过程中，会下载相关资源(请耐心等待)
+
+#### 1.2.2 定义请求处理类
+
+在com.itheima这个包下创建一个子包controller，然后在controller包下新建一个类：HelloController
+
+```
+package com.itheima.controller;
+import org.springframework.web.bind.annotation.*;
+
+@RestController//
+public class HelloController {
+
+    @RequestMapping("/hello")//
+    public String hello(){
+        System.out.println("Hello World ~");
+        return "Hello World ~";
+    }
+}    
+```
+
+#### 1.2.3 运行测试
+
+运行SpringBoot自动生成的引导类
+
+打开浏览器，输入 `http://localhost:8080/hello`
+
+### 1.3 Web分析
+
+浏览器：
+
+- 输入网址：`http://192.168.100.11:8080/hello`，通过IP地址192.168.100.11定位到网络上的一台计算机，我们之前在浏览器中输入的localhost，就是127.0.0.1（本机），通过端口号8080找到计算机上运行的程序，`localhost:8080`  , 意思是在本地计算机中找到正在运行的8080端口的程序
 
 
 
