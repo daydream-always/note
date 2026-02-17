@@ -12,7 +12,7 @@ JVM、JDK、JRE三者关系?
 
 JVM 和 Java 有啥区别?
 
- 
+
 
 为什么Java解释和编译都有？
 
