@@ -10,11 +10,9 @@
 
 ## 2.苍穹外卖项目介绍
 
-2.1 项目介绍
+### 2.1 项目介绍
 
-
-
-2.2 产品原型
+### 2.2 产品原型
 
 产品原型，用于展示项目的业务功能，一般由产品经理进行设计。**<font color='red'>注意事项：</font>** 产品原型主要用于展示项目的功能，并不是最终的页面效果。
 
@@ -42,7 +40,7 @@
 
 
 
-2.3 技术选型
+### 2.3 技术选型
 
 关于本项目的技术选型, 我们将会从 用户层、网关层、应用层、数据层 这几个方面进行介绍，主要用于展示项目中使用到的技术框架和中间件等。
 
@@ -88,7 +86,7 @@
 
 开发环境搭建主要包含前端环境和后端环境两部分。作为服务端开发工程师， 我们课程学习的重心应该放在后端的业务代码上， 前端的页面我们只需要导入资料中的nginx， 前端页面的代码我们只需要能看懂即可。
 
-3.1 前端环境搭建
+### 3.1 前端环境搭建
 
 1）前端工程基于 nginx 
 
@@ -108,11 +106,11 @@ Nginx目录必须放在没有中文的目录中才能正常运行！！！当前
 
 
 
-3.2 后端环境搭建
+### 3.2 后端环境搭建
 
 后端工程基于 maven 进行项目构建，并且进行分模块开发。
 
-3.2.1 熟悉项目结构
+#### 3.2.1 熟悉项目结构
 
 1）从当天资料中找到后端初始工程，2）用 IDEA 打开初始工程，了解项目的整体结构：
 
@@ -161,7 +159,7 @@ sky-server: 模块中存放的是 配置文件、配置类、拦截器、control
 
 
 
-3.2.2 Git版本控制
+#### 3.2.2 Git版本控制
 
 使用Git进行项目代码的版本控制，具体操作：
 
@@ -173,7 +171,7 @@ sky-server: 模块中存放的是 配置文件、配置类、拦截器、control
 
 
 
-3.2.3 数据库环境搭建
+#### 3.2.3 数据库环境搭建
 
 执行sky.sql文件，每张表的说明：
 
@@ -191,7 +189,7 @@ sky-server: 模块中存放的是 配置文件、配置类、拦截器、control
 
 
 
-3.2.4 前后端联调
+#### 3.2.4 前后端联调
 
 后端的初始工程中已经实现了登录功能，直接进行前后端联调测试即可
 
@@ -207,7 +205,7 @@ mapper：select * from employee where username = ?
 
 
 
-3.2.5 nginx反向代理和负载均衡
+#### 3.2.5 nginx反向代理和负载均衡
 
 对登录功能测试完毕后，接下来，我们思考一个问题：前端发送的请求，是如何请求到后端服务的？
 
@@ -251,7 +249,7 @@ nginx 负载均衡策略：
 
 
 
-3.3 完善登录功能
+### 3.3 完善登录功能
 
 **问题：**员工表中的密码是明文存储，安全性太低。
 
@@ -282,7 +280,7 @@ nginx 负载均衡策略：
 
 ## 5.Swagger
 
-5.1 介绍
+### 5.1 介绍
 
 Swagger 是一个规范和完整的框架，用于生成、描述、调用和可视化 RESTful 风格的 Web 服务(<https://swagger.io/>)。
 
@@ -296,7 +294,7 @@ Swagger 是一个规范和完整的框架，用于生成、描述、调用和可
 
 knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案，前身是swagger-bootstrap-ui，取名kni4j是希望它能像一把匕首一样小巧,轻量，并且功能强悍!目前，一般都使用knife4j框架。
 
-5.2 使用步骤
+### 5.2 使用步骤
 
 1. 导入 knife4j 的maven坐标，在pom.xml中添加依赖
 
@@ -331,13 +329,56 @@ knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案，�
        }
    ```
 
+3. 设置静态资源映射，否则接口文档页面无法访问，WebMvcConfiguration.java
+
+   ```java
+   /**
+        * 设置静态资源映射
+        * @param registry
+   */
+   protected void addResourceHandlers(ResourceHandlerRegistry registry) {
+           registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
+           registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+   }
+   ```
+
+4. 访问测试，接口文档访问路径为 http://ip:port/doc.html ---> http://localhost:8080/doc.html
+
    
 
-3. 
+**思考：**通过 Swagger 就可以生成接口文档，那么我们就不需要 Yapi 了？
 
-   
+1、Yapi 是设计阶段使用的工具，管理和维护接口
 
-5.3 常用注解
+2、Swagger 在开发阶段使用的框架，帮助后端开发人员做后端的接口测试
+
+
+
+### 5.3 常用注解
+
+通过注解可以控制生成的接口文档，使接口文档拥有更好的可读性，常用注解如下：
+
+@Api  用在类上，例如Controller，表示对类的说明
+
+@ApiModel  用在类上，例如entity、DTO、VO
+
+@ApiModelProperty  用在属性上，描述属性信息
+
+@ApiOperation  用在方法上，例如Controller的方法，说明方法的用途、作用
+
+
+
+接下来，使用上述注解，生成可读性更好的接口文档
+
+在sky-pojo模块中，EmployeeLoginDTO.java，EmployeeLoginVo.java
+
+在sky-server模块中，EmployeeController.java
+
+启动服务：访问http://localhost:8080/doc.html
+
+
+
+
 
 
 
